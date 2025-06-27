@@ -1,6 +1,7 @@
 # TTS_free
 
 A simple web interface that converts user provided text to speech using `gTTS`.
+The web page now uses [Bootstrap](https://getbootstrap.com/) for a cleaner UI.
 
 ## Setup
 
