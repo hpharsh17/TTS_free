@@ -1,2 +1,17 @@
 # TTS_free
-TTS  public site for free
+
+A simple web interface that converts user provided text to speech using `gTTS`.
+
+## Setup
+
+1. Install dependencies:
+   ```bash
+   pip install -r requirements.txt
+   ```
+
+2. Run the application:
+   ```bash
+   python app.py
+   ```
+
+3. Open `http://localhost:5000` in your browser and enter text to generate the audio file.
