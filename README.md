@@ -1,10 +1,9 @@
 # TTS_free
 
-A simple web interface that converts user provided text to speech using `gTTS`.
+A simple web interface that converts user provided text to speech using `pyttsx3`.
 The web page now uses [Bootstrap](https://getbootstrap.com/) for a cleaner UI.
 
-The interface offers several language options including Hindi and Gujarati, as
-well as multiple voice selections based on Google TTS domains.
+The interface now lets you choose the gender of the voice (male or female).
 
 ## Setup
 
