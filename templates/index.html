@@ -13,8 +13,31 @@
             <div class="mb-3">
                 <textarea name="text" class="form-control" rows="4" placeholder="Enter text here"></textarea>
             </div>
+            <div class="mb-3">
+                <label class="form-label">Language</label>
+                <select name="language" class="form-select">
+                    <option value="en" selected>English</option>
+                    <option value="fr">French</option>
+                    <option value="de">German</option>
+                    <option value="es">Spanish</option>
+                </select>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Voice</label>
+                <select name="voice" class="form-select">
+                    <option value="com" selected>Default</option>
+                    <option value="co.uk">UK</option>
+                    <option value="com.au">Australia</option>
+                    <option value="co.in">India</option>
+                </select>
+            </div>
             <button type="submit" class="btn btn-primary">Convert to Speech</button>
         </form>
+        {% if audio_file %}
+        <div class="mt-4">
+            <audio controls src="/{{ audio_file }}"></audio>
+        </div>
+        {% endif %}
     </div>
 </body>
 </html>
