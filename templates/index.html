@@ -7,7 +7,21 @@
     <h1>Text to Speech</h1>
     <form method="post">
         <textarea name="text" rows="4" cols="50" placeholder="Enter text here"></textarea><br>
+        <label for="lang">Language:</label>
+        <select name="lang">
+            {% for code, name in languages.items() %}
+            <option value="{{ code }}">{{ name }}</option>
+            {% endfor %}
+        </select><br>
         <button type="submit">Convert to Speech</button>
     </form>
+
+    {% if audio_url %}
+    <h2>Preview:</h2>
+    <audio controls>
+        <source src="{{ audio_url }}" type="audio/mpeg">
+    </audio>
+    <p><a href="{{ url_for('download_file', filename=audio_url.split('/')[-1]) }}">Download Audio</a></p>
+    {% endif %}
 </body>
 </html>
