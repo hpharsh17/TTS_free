@@ -1,6 +1,8 @@
 # TTS_free
 
 A simple web interface that converts user provided text to speech using `gTTS`.
+The page now lets you choose a language, preview the generated audio and
+download the result.
 
 ## Setup
 
@@ -14,4 +16,5 @@ A simple web interface that converts user provided text to speech using `gTTS`.
    python app.py
    ```
 
-3. Open `http://localhost:5000` in your browser and enter text to generate the audio file.
+3. Open `http://localhost:5000` in your browser and enter text to generate the
+   audio file.
