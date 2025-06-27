@@ -3,6 +3,9 @@
 A simple web interface that converts user provided text to speech using `gTTS`.
 The web page now uses [Bootstrap](https://getbootstrap.com/) for a cleaner UI.
 
+The interface offers several language options including Hindi and Gujarati, as
+well as multiple voice selections based on Google TTS domains.
+
 ## Setup
 
 1. Install dependencies:
