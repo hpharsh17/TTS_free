@@ -1,5 +1,5 @@
 from flask import Flask, request, render_template
-import pyttsx3
+from TTS.api import TTS
 import os
 
 app = Flask(__name__)
@@ -14,51 +14,28 @@ def index():
         language = request.form.get('language', 'en')
         if text:
             try:
-                engine = pyttsx3.init()
-            except RuntimeError:
-                error = (
-                    "pyttsx3 could not find a speech engine. Install eSpeak or "
-                    "espeak-ng on your system."
-                )
+                models = TTS.list_models()
+            except Exception as exc:
+                error = f"TTS initialization failed: {exc}"
             else:
-                voices = engine.getProperty('voices')
-
-                def voice_matches(v, lang, gen):
-                    voice_gender = str(getattr(v, 'gender', '')).lower()
-                    langs = []
-                    for l in getattr(v, 'languages', []):
-                        if isinstance(l, bytes):
-                            l = l.decode('utf-8')
-                        langs.append(str(l).split('_')[0].lower())
-                    return gen in voice_gender and lang.lower() in langs
-
-                def voice_matches_lang(v, lang):
-                    langs = []
-                    for l in getattr(v, 'languages', []):
-                        if isinstance(l, bytes):
-                            l = l.decode('utf-8')
-                        langs.append(str(l).split('_')[0].lower())
-                    return lang.lower() in langs
-
-                selected_voice = None
-                for v in voices:
-                    if voice_matches(v, language, gender):
-                        selected_voice = v
+                model_name = None
+                for m in models:
+                    if m.startswith(f"tts_models/{language}") and gender.lower() in m.lower():
+                        model_name = m
                         break
-                if not selected_voice:
-                    for v in voices:
-                        if voice_matches_lang(v, language):
-                            selected_voice = v
+                if not model_name:
+                    for m in models:
+                        if m.startswith(f"tts_models/{language}"):
+                            model_name = m
                             break
-                if not selected_voice:
-                    selected_voice = voices[0]
+                if not model_name:
+                    model_name = "tts_models/en/vctk/vits"
 
-                engine.setProperty('voice', selected_voice.id)
+                tts = TTS(model_name)
                 if not os.path.exists('static'):
                     os.makedirs('static')
                 filepath = os.path.join('static', 'output.wav')
-                engine.save_to_file(text, filepath)
-                engine.runAndWait()
+                tts.tts_to_file(text=text, file_path=filepath)
                 audio_file = filepath
     return render_template('index.html', audio_file=audio_file, error=error)
 
