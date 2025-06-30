@@ -11,6 +11,10 @@ The interface now lets you choose the gender of the voice (male or female).
    ```bash
    pip install -r requirements.txt
    ```
+   On Linux, `pyttsx3` relies on an external speech engine. Install
+   [eSpeak](https://github.com/espeak-ng/espeak-ng) or `espeak-ng` through
+   your package manager if you encounter a `RuntimeError` about missing
+   eSpeak.
 
 2. Run the application:
    ```bash
