@@ -1,6 +1,7 @@
 # TTS_free
 
-A simple web interface that converts user provided text to speech using `pyttsx3`.
+A simple web interface that converts user provided text to speech using the
+open‑source [Coqui TTS](https://github.com/coqui-ai/TTS) library.
 The web page now uses [Bootstrap](https://getbootstrap.com/) for a cleaner UI.
 
 The interface now lets you choose the language (English, Spanish, French, German,
@@ -14,13 +15,8 @@ and the gender of the voice (male or female).
    ```bash
    pip install -r requirements.txt
    ```
-On Linux, `pyttsx3` relies on an external speech engine. Install
-[eSpeak](https://github.com/espeak-ng/espeak-ng) or `espeak-ng` through
-your package manager if you encounter a `RuntimeError` similar to:
-
-```
-pyttsx3 could not find a speech engine. Install eSpeak or espeak-ng on your system.
-```
+The models are downloaded automatically on first run so internet access may be
+required the first time you generate speech.
 
 2. Run the application:
    ```bash
