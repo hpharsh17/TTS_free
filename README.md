@@ -3,7 +3,9 @@
 A simple web interface that converts user provided text to speech using `pyttsx3`.
 The web page now uses [Bootstrap](https://getbootstrap.com/) for a cleaner UI.
 
-The interface now lets you choose the language (English, Spanish, French or German)
+The interface now lets you choose the language (English, Spanish, French, German,
+Gujarati, Hindi, Arabic, Chinese, Japanese, Korean, Russian, Italian,
+Portuguese or Dutch)
 and the gender of the voice (male or female).
 
 ## Setup
@@ -12,10 +14,13 @@ and the gender of the voice (male or female).
    ```bash
    pip install -r requirements.txt
    ```
-   On Linux, `pyttsx3` relies on an external speech engine. Install
-   [eSpeak](https://github.com/espeak-ng/espeak-ng) or `espeak-ng` through
-   your package manager if you encounter a `RuntimeError` about missing
-   eSpeak.
+On Linux, `pyttsx3` relies on an external speech engine. Install
+[eSpeak](https://github.com/espeak-ng/espeak-ng) or `espeak-ng` through
+your package manager if you encounter a `RuntimeError` similar to:
+
+```
+pyttsx3 could not find a speech engine. Install eSpeak or espeak-ng on your system.
+```
 
 2. Run the application:
    ```bash
