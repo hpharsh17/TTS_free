@@ -22,6 +22,9 @@
             </div>
             <button type="submit" class="btn btn-primary">Convert to Speech</button>
         </form>
+        {% if error %}
+        <div class="alert alert-danger mt-4">{{ error }}</div>
+        {% endif %}
         {% if audio_file %}
         <div class="mt-4">
             <audio controls src="/{{ audio_file }}"></audio>
