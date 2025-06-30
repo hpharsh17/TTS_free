@@ -11,6 +11,7 @@ def index():
     if request.method == 'POST':
         text = request.form.get('text', '')
         gender = request.form.get('gender', 'male')
+        language = request.form.get('language', 'en')
         if text:
             try:
                 engine = pyttsx3.init()
@@ -21,13 +22,37 @@ def index():
                 )
             else:
                 voices = engine.getProperty('voices')
-                selected_voice = voices[0]
-                if gender == 'female':
+
+                def voice_matches(v, lang, gen):
+                    voice_gender = str(getattr(v, 'gender', '')).lower()
+                    langs = []
+                    for l in getattr(v, 'languages', []):
+                        if isinstance(l, bytes):
+                            l = l.decode('utf-8')
+                        langs.append(str(l).split('_')[0].lower())
+                    return gen in voice_gender and lang.lower() in langs
+
+                def voice_matches_lang(v, lang):
+                    langs = []
+                    for l in getattr(v, 'languages', []):
+                        if isinstance(l, bytes):
+                            l = l.decode('utf-8')
+                        langs.append(str(l).split('_')[0].lower())
+                    return lang.lower() in langs
+
+                selected_voice = None
+                for v in voices:
+                    if voice_matches(v, language, gender):
+                        selected_voice = v
+                        break
+                if not selected_voice:
                     for v in voices:
-                        gender_attr = getattr(v, 'gender', '').lower()
-                        if 'female' in v.name.lower() or 'female' in gender_attr:
+                        if voice_matches_lang(v, language):
                             selected_voice = v
                             break
+                if not selected_voice:
+                    selected_voice = voices[0]
+
                 engine.setProperty('voice', selected_voice.id)
                 if not os.path.exists('static'):
                     os.makedirs('static')

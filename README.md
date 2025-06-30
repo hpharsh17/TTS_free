@@ -3,7 +3,8 @@
 A simple web interface that converts user provided text to speech using `pyttsx3`.
 The web page now uses [Bootstrap](https://getbootstrap.com/) for a cleaner UI.
 
-The interface now lets you choose the gender of the voice (male or female).
+The interface now lets you choose the language (English, Spanish, French or German)
+and the gender of the voice (male or female).
 
 ## Setup
 
