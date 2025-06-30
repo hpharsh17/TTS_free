@@ -6,7 +6,8 @@ The web page now uses [Bootstrap](https://getbootstrap.com/) for a cleaner UI.
 The interface now lets you choose the language (English, Spanish, French, German,
 Gujarati, Hindi, Arabic, Chinese, Japanese, Korean, Russian, Italian,
 Portuguese or Dutch)
-and the gender of the voice (male or female).
+and the gender of the voice (male or female). You can optionally provide an
+email address to receive the generated audio file as an attachment.
 
 ## Setup
 
@@ -27,4 +28,5 @@ pyttsx3 could not find a speech engine. Install eSpeak or espeak-ng on your syst
    python app.py
    ```
 
-3. Open `http://localhost:5000` in your browser and enter text to generate the audio file.
+3. Open `http://localhost:5000` in your browser and enter text (and optionally
+   an email address) to generate the audio file.

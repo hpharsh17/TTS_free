@@ -1,8 +1,35 @@
 from flask import Flask, request, render_template
 import pyttsx3
 import os
+import smtplib
+from email.message import EmailMessage
 
 app = Flask(__name__)
+
+
+def send_email(recipient, filepath):
+    """Send the generated audio file to the given email address."""
+    msg = EmailMessage()
+    msg["Subject"] = "Your TTS Audio File"
+    msg["From"] = "noreply@example.com"
+    msg["To"] = recipient
+    msg.set_content("Please find the generated audio file attached.")
+
+    with open(filepath, "rb") as f:
+        data = f.read()
+        msg.add_attachment(
+            data,
+            maintype="audio",
+            subtype="wav",
+            filename=os.path.basename(filepath),
+        )
+
+    try:
+        with smtplib.SMTP("localhost") as smtp:
+            smtp.send_message(msg)
+    except Exception as exc:
+        return str(exc)
+    return None
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
@@ -12,6 +39,7 @@ def index():
         text = request.form.get('text', '')
         gender = request.form.get('gender', 'male')
         language = request.form.get('language', 'en')
+        email = request.form.get('email', '').strip()
         if text:
             try:
                 engine = pyttsx3.init()
@@ -60,6 +88,10 @@ def index():
                 engine.save_to_file(text, filepath)
                 engine.runAndWait()
                 audio_file = filepath
+                if email:
+                    mail_error = send_email(email, filepath)
+                    if mail_error:
+                        error = f"Failed to send email: {mail_error}"
     return render_template('index.html', audio_file=audio_file, error=error)
 
 if __name__ == '__main__':
